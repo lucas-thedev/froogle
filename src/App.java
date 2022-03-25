@@ -16,6 +16,30 @@ public class App {
         }
         file.close();
     }
+    
+    //Menu
+    public static int Menu(){
+        Scanner ler = new Scanner(System.in);
+        int vmenu;
+
+        do{
+            System.out.println("Selecione a opção desejada");
+        System.out.println("1-Consultar termo \n2-Inserir novo termo");
+
+        vmenu = ler.nextInt();
+
+        if(vmenu<1 || vmenu>2){
+            limparTela();
+            
+            System.out.println("Não exite esa opção! Digite o número correspondente a sua operação.\nPressione qualquer tecla...");
+
+            ler.nextLine();
+        }
+
+    }while(vmenu<1 || vmenu>2);
+        
+        return vmenu;
+    }
 
     //Metodo responsavel por entrar vários arquivos e armazenar seus temos
     public static Termo[] carregarDadosMultiplos() throws FileNotFoundException {
