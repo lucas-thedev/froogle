@@ -36,10 +36,12 @@ public class App {
         for (String leitorArquivo : arquivos) {
             File arquivo = new File(leitorArquivo);
             Scanner leitorTermo = new Scanner(arquivo);
-
-            dados[contador] = leitorTermo.nextLine();
+            // contador = 0;
+            while (leitorTermo.hasNextLine()) {
+                dados[contador] = leitorTermo.nextLine();
+                contador++;
+            }
             leitorTermo.close();
-            contador++;
         }
 
         leitor.close();
@@ -60,6 +62,5 @@ public class App {
                 System.out.println(dado);
             }
         }
-        loadFile();
     }
 }
