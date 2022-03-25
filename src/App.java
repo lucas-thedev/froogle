@@ -16,59 +16,6 @@ public class App {
         }
         file.close();
     }
-    
-    //Menu
-    public static int Menu(){
-        Scanner ler = new Scanner(System.in);
-        int vmenu;
-
-        do{
-            System.out.println("Selecione a opção desejada");
-        System.out.println("1-Consultar termo \n2-Inserir novo termo");
-
-        vmenu = ler.nextInt();
-
-        if(vmenu<1 || vmenu>2){
-            limparTela();
-            
-            System.out.println("Não exite esa opção! Digite o número correspondente a sua operação.\nPressione qualquer tecla...");
-
-            ler.nextLine();
-        }
-
-    }while(vmenu<1 || vmenu>2);
-        
-        return vmenu;
-    }
-
-    //Metodo responsavel por entrar vários arquivos e armazenar seus temos
-    public static Termo[] carregarDadosMultiplos() throws FileNotFoundException {
-        contador = 0;
-        File arqQuantidade = new File(nomeArquivo);
-        Scanner leitor = new Scanner(arqQuantidade);
-        int qntArqvs = Integer.parseInt(leitor.nextLine());
-        String[] arquivos = new String[qntArqvs];
-        //for entra no arquivo que armazena o nome de todos outros arquivos então cria um vetor de string com o nome de todos arquivos usados
-        for (int i = 0; i < qntArqvs; i++) {
-            String dados = leitor.nextLine();
-            arquivos[i] = dados;
-        }
-        
-        ArrayList<Termo> termos = new ArrayList<Termo>();       //Metodo que achei que seria possivel criar um vetor de tamanho indefinido
-        //foreach que passar por todos arquivos então adiciona na classe *Termo* as entradas
-        for (String string : arquivos) {
-            File arquivo = new File(arquivos[contador]);
-            Scanner leitorTermo = new Scanner(arquivo);
-            int qntTermos = Integer.parseInt(leitorTermo.nextLine());
-
-            String[] dados = leitor.nextLine().split(";");
-
-            contador++;
-        }
-
-        leitor.close();
-        return termos;
-    }
 
     public static void limparTela() {
         System.out.print("\033[H\033[2J");
@@ -76,6 +23,27 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        loadFile();
+
+        Scanner ler = new Scanner(System.in);
+        int vmenu;
+
+        do {
+            
+            limparTela();
+            System.out.println("Selecione a opção desejada");
+            System.out.println("1- Consultar termo \n2- Inserir novo termo");
+
+            vmenu = ler.nextInt();
+
+            if (vmenu < 1 || vmenu > 2) {
+                limparTela();
+
+                System.out.println(
+                        "Não exite esa opção!\n Digite um número correspondente a sua operação...");
+
+                ler.nextLine();
+            }
+
+        }while(vmenu < 1 || vmenu > 2);
     }
 }
