@@ -45,5 +45,7 @@ public class App {
             }
 
         }while(vmenu < 1 || vmenu > 2);
+
+        ler.close();
     }
 }
