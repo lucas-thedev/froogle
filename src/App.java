@@ -2,44 +2,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class App {
     static final String nomeArquivo = "ARQUIVOS.TXT";
+    static final String nomeArquivoGravar = "DADOS.TXT";
     static String path = "AED_20_MiniGoogle_Etapa1_2022.txt";
 
-    static void loadFile() throws IOException {
-        Scanner file = new Scanner(new File(path));
-        while (file.hasNextLine()) {
-            System.out.println(file.nextLine());
-        }
-        file.close();
-    }
-
-    // Metodo responsavel por entrar vários arquivos e armazenar seus temos
-    public static String[] carregarDadosMultiplos() throws FileNotFoundException {
+    public static String carregarDadosMultiplos() throws FileNotFoundException {
         File arqQuantidade = new File(nomeArquivo);
         Scanner leitor = new Scanner(arqQuantidade);
         int qntArqvs = Integer.parseInt(leitor.nextLine());
         String[] arquivos = new String[qntArqvs];
-        String[] dados = new String[1000];
-        int contador = 0;
+        String dados = "";
 
-        // for entra no arquivo que armazena o nome de todos outros arquivos então cria
-        // um vetor de string com o nome de todos arquivos usados
         for (int i = 0; i < qntArqvs; i++) {
             arquivos[i] = leitor.nextLine();
         }
 
-        // foreach que passar por todos arquivos então adiciona na classe *Termo* as
-        // entradas
         for (String leitorArquivo : arquivos) {
             File arquivo = new File(leitorArquivo);
             Scanner leitorTermo = new Scanner(arquivo);
             // contador = 0;
             while (leitorTermo.hasNextLine()) {
-                dados[contador] = leitorTermo.nextLine();
-                contador++;
+                dados += leitorTermo.nextLine();
             }
             leitorTermo.close();
         }
@@ -48,19 +35,61 @@ public class App {
         return dados;
     }
 
+    static void salvarDados(ArrayList<Termo> dados) throws IOException{
+        File arquivo = new File(nomeArquivoGravar);
+        FileWriter escritor = new FileWriter(arquivo, false);
+
+        for(int i=0; i<dados.size(); i++){
+            String paraGravar = formatTermo(dados.get(i));
+            escritor.append(paraGravar+"\n");
+        }
+        
+        escritor.close();
+    }
+
+    public static int searchTermo(ArrayList<Termo> termos, String termo) {
+        int earlyReturn = -1;
+        for (int i = 0; i < termos.size(); i++) {
+            if (termos.get(i).termo.equals(termo)) {
+                earlyReturn = i;
+                break;
+            }
+        }
+        return earlyReturn;
+    }
+
+    static public ArrayList<Termo> processData(String dados) {
+
+        String[] separatedWords = dados.split(" ");
+        ArrayList<Termo> termos = new ArrayList<Termo>();
+
+        for (String word : separatedWords) {
+            int index = searchTermo(termos, word);
+            if (index > -1) {
+                termos.get(index).counter++;
+            } else {
+                Termo newTermo = new Termo(word);
+                newTermo.counter++;
+                termos.add(newTermo);
+            }
+        }
+
+        return termos;
+    }
+
+    public static String formatTermo(Termo termo) {
+        return String.valueOf(termo.id) + ";" + termo.termo + ";" + String.valueOf(termo.counter);
+    }
+
     public static void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     public static void main(String[] args) throws Exception {
-        String[] dados = new String[1000];
+        String dados = carregarDadosMultiplos();
         limparTela();
-        dados = carregarDadosMultiplos();
-        for (String dado : dados) {
-            if (dado != null) {
-                System.out.println(dado);
-            }
-        }
+        ArrayList<Termo> termos = processData(dados);
+        salvarDados(termos);
     }
 }
