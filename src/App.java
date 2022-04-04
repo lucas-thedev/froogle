@@ -24,7 +24,6 @@ public class App {
         for (String leitorArquivo : arquivos) {
             File arquivo = new File(leitorArquivo);
             Scanner leitorTermo = new Scanner(arquivo);
-            // contador = 0;
             while (leitorTermo.hasNextLine()) {
                 dados += leitorTermo.nextLine();
             }
@@ -90,6 +89,7 @@ public class App {
         String dados = carregarDadosMultiplos();
         limparTela();
         ArrayList<Termo> termos = processData(dados);
-        salvarDados(termos);
+        ArrayList<Termo> orderedTermos = Termo.ordernarDecrescente(termos);
+        salvarDados(orderedTermos);
     }
 }

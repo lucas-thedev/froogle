@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Termo {
@@ -10,5 +13,11 @@ public class Termo {
         this.termo = t;
         this.counter = 0; 
         this.id = count.incrementAndGet();
+    }
+
+    public static ArrayList<Termo> ordernarDecrescente(ArrayList<Termo> termos) {
+        Quicksort.quickSort(termos, 0, termos.size() - 1);
+        Collections.reverse(termos);
+        return termos;
     }
 }
