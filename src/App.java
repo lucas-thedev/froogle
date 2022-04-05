@@ -24,7 +24,6 @@ public class App {
         for (String leitorArquivo : arquivos) {
             File arquivo = new File(leitorArquivo);
             Scanner leitorTermo = new Scanner(arquivo);
-            // contador = 0;
             while (leitorTermo.hasNextLine()) {
                 dados += leitorTermo.nextLine();
             }
@@ -132,6 +131,15 @@ public class App {
         String dados = carregarDadosMultiplos();
         limparTela();
         ArrayList<Termo> termos = processData(dados);
-        salvarDados(termos);
+
+        //tem q chamar isso aqui (apaga o comentario dps q fizer o menu pls)
+        ArrayList<Termo> orderedTermos = Termo.ordernarDecrescente(termos);
+
+        // chamar o searchTermo tb para procurar se existe um termo
+        // implementar um metodo de impressao do termo achado
+
+        //ainda nao tem incluir, so coloca nao tem essa oção ainda
+
+        salvarDados(orderedTermos);
     }
 }
