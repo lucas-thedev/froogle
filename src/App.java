@@ -93,8 +93,8 @@ public class App {
         do {
             
             limparTela();
-            System.out.println("Selecione a opção desejada");
-            System.out.println("1- Consultar termo \n2- Ordenar termos\n3-Inserir novo termo");
+            System.out.println("Selecione a opção desejada:");
+            System.out.println("1- Consultar termo \n2- Ordenar termos\n3- Inserir novo termo");
 
             vmenu = ler.nextInt();
 
@@ -109,14 +109,18 @@ public class App {
             switch(vmenu){
                 case 1: 
 
-                    System.out.println(carregarDadosMultiplos()); 
+                    //System.out.println(carregarDadosMultiplos()); 
                 break;
 
                 case 2:
-                    //inserir novo dado();
+                    System.out.println("Informe o termo: ");
+                    String trm = ler.nextLine();
+                    System.out.println(trm); 
+                    
                 break;
 
                 case 3:
+                    
                     //Ordenar decrescente por sua frquencia;
                 break;
 
