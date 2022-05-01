@@ -1,15 +1,6 @@
-contas banc�rias
-crie uma classe contabanc�ria  uma conta banc�ria tem um n�mero o cpf do titular e um saldo 
-crie um programa teste que leia dados de contas banc�rias de um arquivo texto uma conta em cada linha no formato  n�mero cpf saldoinicial
-loja de jogos
-crie uma classe jogodigital  um jogo tem um c�digo identificador um nome uma plataforma seu ano de lan�amento e seu pre�o atual  
-crie um programa teste que leia dados de jogos de um arquivo texto um jogo em cada linha no formato  idjogo nomejogo plataforma anolan�amento pre�o
-minhas s�ries
-crie uma classe serie  uma s�rie tem um c�digo identificador um nome sua data de lan�amento e o n�mero total de epis�dios  
-crie um programa teste que leia dados de s�ries de um arquivo texto uma s�rie em cada linha no formato  nome datadelan�amento n�merototaldeepis�dios
-elei��o
-crie uma classe eleitor  cada eleitor tem o n�mero do t�tulo eleitoral seu nome sua zona eleitoral e sua se��o de vota��o  ele deve ter ainda um atributo que permita saber se ele compareceu � �ltima elei��o 
-crie um programa teste que leia dados de eleitores de um arquivo texto um eleitor em cada linha no formato  n�merodot�tulo nome zona se��o
-mini-google
-crie uma classe termo  um termo � uma palavra acompanhada de quantas vezes ela ocorreu em um documento  
-crie um programa teste que leia linhas de um arquivo texto e preencha dados de termos  em cada linha do arquivo texto teremos v�rias palavras sempre separadas por espa�o em branco 
+eu
+ela
+anolan�amento
+titular
+que 
+eu

@@ -1,13 +1,15 @@
+package Lista;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Documento {
-    static final AtomicInteger count = new AtomicInteger(-1);
+public class List {
+    private static final AtomicInteger count = new AtomicInteger(0);
     int idDoc;
     String titulo;
     String url;
 
-    Documento(String titulo) {
+    List(String titulo, String url) {
         this.idDoc = count.incrementAndGet();
         this.titulo = titulo;
+        this.url = url;
     }
 }
