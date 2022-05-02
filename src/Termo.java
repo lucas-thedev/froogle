@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Termo {
-    static final AtomicInteger count = new AtomicInteger(-1); 
+    static final AtomicInteger count = new AtomicInteger(-1);
     int id;
     String termo;
     int counter;

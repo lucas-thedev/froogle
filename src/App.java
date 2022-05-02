@@ -16,6 +16,7 @@ public class App {
         for (int i = 0; i < dados.size(); i++) {
             String paraGravar = formatTermo(dados.get(i));
             escritor.append(paraGravar + "\n");
+            counter++;
         }
 
         escritor.close();
@@ -35,6 +36,17 @@ public class App {
         teclado.nextLine();
     }
 
+    public static void menuExibir(){
+        System.out.print("----------Froogle----------|\n\n");
+        System.out.print("|--------------------------|\n");
+        System.out.print("| Opção 1 - Consultar novo termo\n");
+        System.out.print("| Opção 2 - Inserir novo termo\n");
+        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência)\n");
+        System.out.print("| Opção 4 - Sair\n");
+        System.out.print("|---------------------------|\n");
+        System.out.print("Digite uma opção: ");
+    }
+
     public static void main(String[] args) throws Exception {
         limparTela();
         Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
@@ -44,14 +56,7 @@ public class App {
         int opcao;
         do {
             limparTela();
-            System.out.print("----------Froogle----------|\n\n");
-            System.out.print("|--------------------------|\n");
-            System.out.print("| Opção 1 - Consultar novo termo\n");
-            System.out.print("| Opção 2 - Inserir novo termo\n");
-            System.out.print("| Opção 3 - Exibir termos (decrescente por frequência)\n");
-            System.out.print("| Opção 4 - Sair\n");
-            System.out.print("|---------------------------|\n");
-            System.out.print("Digite uma opção: ");
+            menuExibir();
 
             opcao = menu.nextInt();
             switch (opcao) {
@@ -77,19 +82,22 @@ public class App {
                     break;
 
                 case 2:
-                    System.out.print("\nDigite o Termo que deseja inserir: (FALTANDO*********)");
+                    System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
                     String termoInserir_ = termoInserir.nextLine();
+                    Termo termoInserir = new Termo(termoInserir_, );
                     pausa(termoInserir);
                     break;
 
                 case 3:
-                    System.out.print("\nExibir todos Termos (POR FREQUENCIA. FALTANDO********)\n");
+                    System.out.print("\nTodos os termos: \n");
                     for (Termo termo : termos) {
                         if (termos != null) {
                             System.out.println(termo.termo);
                         }
                     }
+                    Scanner termoListar = new Scanner(System.in);
+                    pausa(termoListar);
                     break;
 
                 default:
