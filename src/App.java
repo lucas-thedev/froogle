@@ -16,7 +16,6 @@ public class App {
         for (int i = 0; i < dados.size(); i++) {
             String paraGravar = formatTermo(dados.get(i));
             escritor.append(paraGravar + "\n");
-            counter++;
         }
 
         escritor.close();
@@ -68,15 +67,8 @@ public class App {
                     if (termoID == -1) {
                         System.out.print("Termo não existe.");
                     } else {
-                        System.out.print("\nO termo: " + termos[termoID].termo);
-                        if (termos[termoID].docCounter == 0) {
-                            System.out.print(", não aparece em algum documento.");
-                        } else {
-                            System.out.print(", aparece nos docuemntos: \n");
-                            for (int i = 0; i < termos[termoID].docCounter; i++) {
-                                System.out.print(termos[termoID].documentos[i] + ", ");
-                            }
-                        }
+                        System.out.print("Aparece nos documentos: \n");
+                        termos[termoID].documentos.printList(); 
                     }
                     pausa(termoPorcurado);
                     break;
@@ -84,16 +76,16 @@ public class App {
                 case 2:
                     System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
-                    String termoInserir_ = termoInserir.nextLine();
-                    Termo termoInserir = new Termo(termoInserir_, );
-                    pausa(termoInserir);
+                    String termoInserir_ = termoInserir.nextLine(); //falta implementar professor
                     break;
 
                 case 3:
                     System.out.print("\nTodos os termos: \n");
-                    for (Termo termo : termos) {
-                        if (termos != null) {
-                            System.out.println(termo.termo);
+                    Quicksort.quickSort(termos, 0, Termo.count.get() - 1);
+                    for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
+                        if (termos[i] != null) {
+                            System.out.print(termos[i].termo + ' ');
+                            System.out.println(termos[i].counter);
                         }
                     }
                     Scanner termoListar = new Scanner(System.in);

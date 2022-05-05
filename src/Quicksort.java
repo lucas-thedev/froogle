@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
 public class Quicksort {
 
-    public static void quickSort(ArrayList<Termo> termos, int inicio, int fim) {
+    public static void quickSort(Termo[] termos, int inicio, int fim) {
         if (inicio < fim) {
                int posicaoPivo = separar(termos, inicio, fim);
                quickSort(termos, inicio, posicaoPivo - 1);
@@ -10,24 +8,24 @@ public class Quicksort {
         }
     }
 
-    private static int separar(ArrayList<Termo> termos, int inicio, int fim) {
-        int pivo = termos.get(inicio).counter;
+    private static int separar(Termo[] termos, int inicio, int fim) {
+        int pivo = termos[inicio].counter;
         int i = inicio + 1, f = fim;
         while (i <= f) {
-               if (termos.get(i).counter <= pivo)
+               if (termos[i].counter <= pivo)
                       i++;
-               else if (pivo < termos.get(f).counter)
+               else if (pivo < termos[f].counter)
                       f--;
                else {
-                      int troca = termos.get(i).counter;
-                      termos.get(i).counter = termos.get(f).counter;
-                      termos.get(f).counter = troca;
+                      int troca = termos[i].counter;
+                      termos[i].counter = termos[f].counter;
+                      termos[f].counter = troca;
                       i++;
                       f--;
                }
         }
-        termos.get(inicio).counter = termos.get(f).counter;
-        termos.get(f).counter = pivo;
+        termos[inicio].counter = termos[f].counter;
+        termos[f].counter = pivo;
         return f;
     }
     
