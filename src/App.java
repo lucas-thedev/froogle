@@ -36,13 +36,14 @@ public class App {
     }
 
     public static void menuExibir(){
-        System.out.print("----------Froogle----------|\n\n");
-        System.out.print("|--------------------------|\n");
-        System.out.print("| Opção 1 - Consultar novo termo\n");
-        System.out.print("| Opção 2 - Inserir novo termo\n");
-        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência)\n");
-        System.out.print("| Opção 4 - Sair\n");
-        System.out.print("|---------------------------|\n");
+        System.out.print("|------------------------Froogle-----------------------|\n");
+        System.out.print("|                                                      |\n");
+        System.out.print("|------------------------------------------------------|\n");
+        System.out.print("| Opção 1 - Consultar novo termo                       |\n");
+        System.out.print("| Opção 2 - Inserir novo termo                         |\n");
+        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência) |\n");
+        System.out.print("| Opção 4 - Sair                                       |\n");
+        System.out.print("|------------------------------------------------------|\n\n");
         System.out.print("Digite uma opção: ");
     }
 
@@ -77,6 +78,9 @@ public class App {
                     System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
                     String termoInserir_ = termoInserir.nextLine(); //falta implementar professor
+                    System.out.println(termos.length);
+                    // LoadData.insertTermo(termoInserir_, termos,path);
+                    // System.out.println("Termo inserido com sucesso!");
                     break;
 
                 case 3:
