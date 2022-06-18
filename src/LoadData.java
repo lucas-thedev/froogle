@@ -1,6 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -76,6 +80,7 @@ public class LoadData {
 
     public static int searchTermo(Termo[] termos, String termo) {
         int earlyReturn = -1;
+        
         for (int i = 0; i < Termo.count.get(); i++) {
             if (termos[i] == null) break;
             if (termos[i].termo.equals(termo)) {
@@ -85,50 +90,90 @@ public class LoadData {
         }
         return earlyReturn;
     }
-    public static String formatTermo(Termo termo) {
-        return String.valueOf(termo.id) + ";" + termo.termo + ";" + String.valueOf(termo.counter);
-    }
+
 
     /**
      * Caso a palavra já exista, deve ser adicionado uma unidade nas repetições.
      * IF O TXT deve ser limpo, o valor das unidades de repetição atualizado, em sequencia escrever todos os elementos novamente.
      * Else O TXT deve ser limpo pois o primeiro elemento é o ultimo, deve ser escrito na primeira linha o novo elemento
      * (não sei se deve ordenar primeiro) e em sequencia escrito o restante.
+     * PASSOS:
+     * Criar um leitor de TXT e chama-lo toda vez que for selecionado a opção 2 ou no inicio da função insertTermo
+     * Passar para um array temporario tudo o que está no TXT
+     * Inserir o novo termo formatado
+     * Reescrever todos os outros termos que está no array temporario
+     * 
      * @param termo
      * @param termos
      * @param path
      */
-    public static void insertTermo(String termo, Termo[] termos1,String path)   {
+    public static void insertTermo(String termo) throws IOException  {
+        int cont = 0;
+        String auxGravador = "";
+        int auxNum = 0;
+        String passaTXT ="", formatador = "";
         
-        int exists = searchTermo(termos, termo);
-        
-        if(exists == -1) {
-            try{            
-                PrintWriter ps = new PrintWriter("DADOS.TXT");
-                
-                String formataTermo =  termos1.length + ";" + termo + ";1";
-                ps.print(formataTermo);
-                for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
-                    if (termos[i] != null) {
-                        System.out.print(termos[i].termo + ' ');
-                        System.out.println(termos[i].counter);
-                    }
-                }
-                //  for (int i=0; i<termos.length; i++) {
-                //      ps.println(i+";" + termos[i].termo +";"+ termos[i].counter);
-                //  }
-                ps.close();
+        Map<Integer, String> dictionary = new HashMap<Integer, String>();
 
-            }catch(Exception e){
-                System.out.println(e);
-            }
+        Scanner scanner = new Scanner(new FileReader("./DADOS.TXT")).useDelimiter("\\n");
+        int exists = -1;
+
+        while (scanner.hasNext()) {
+            String aux = scanner.next();
+            aux = aux.toLowerCase(); 
+
+            if(aux != null || aux !="")
+            dictionary.put(cont, aux);
             
-        } else {
-            int aux = termos[exists].counter++;
-            System.out.println("ali");
-            // cria um novo TXT, adiciona o termo a ser inserido e depois adiciona os termos que já existiam;
-            
+            if (aux.contains(termo))
+             exists = cont;
+
+             cont++;
         }
-    }
 
+        if(exists == -1) { //<- TERMO NÃO EXISTE
+ 
+            cont++;
+            formatador = cont + ";" + termo + ";1";
+            dictionary.put(cont, formatador);     
+        } else {
+
+            StringTokenizer t = new StringTokenizer(dictionary.get(exists), ";");
+            
+            int i = 0;
+            
+            while (t.hasMoreTokens()){
+		        String ret = t.nextToken();
+                
+		        if (i!=2){
+                    auxGravador+= ret + ";";
+                   
+                } else {
+                    auxNum = Integer.parseInt(ret);
+                    auxNum++;
+                    auxGravador += auxNum;
+                }
+                i++;
+	        }
+
+            System.out.println(auxGravador);
+                dictionary.remove(exists);
+                dictionary.put(cont, auxGravador);
+
+           
+        }
+            PrintWriter gravarArq = new PrintWriter("DADOS.TXT");
+            for(int k=0; k<=cont; k++){
+                if(dictionary.get(k)!= null && dictionary.get(k)!= ""){
+                    if(k==0)
+                        passaTXT+=  dictionary.get(k);
+                    else
+                        passaTXT+= "\n" + dictionary.get(k);      
+                    }
+
+            }
+                    gravarArq.print(passaTXT);
+                    gravarArq.close();
+
+    }
 }

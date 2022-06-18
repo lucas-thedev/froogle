@@ -49,12 +49,15 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         limparTela();
-        Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
-        Termo[] termos = LoadData.LoadTermos(documentos);
 
+        
         Scanner menu = new Scanner(System.in);
         int opcao;
+        
         do {
+            Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
+            Termo[] termos = LoadData.LoadTermos(documentos);
+            
             limparTela();
             menuExibir();
 
@@ -77,10 +80,10 @@ public class App {
                 case 2:
                     System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
-                    String termoInserir_ = termoInserir.nextLine(); //falta implementar professor
-                    System.out.println(termos.length);
-                    // LoadData.insertTermo(termoInserir_, termos,path);
-                    // System.out.println("Termo inserido com sucesso!");
+                    String termoInserir_ = termoInserir.nextLine(); 
+                    termoInserir_ = termoInserir_.toLowerCase();          
+                    LoadData.insertTermo(termoInserir_);
+                    System.out.println("Termo inserido com sucesso!");
                     break;
 
                 case 3:
