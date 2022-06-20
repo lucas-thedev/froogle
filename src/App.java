@@ -36,24 +36,28 @@ public class App {
     }
 
     public static void menuExibir(){
-        System.out.print("----------Froogle----------|\n\n");
-        System.out.print("|--------------------------|\n");
-        System.out.print("| Opção 1 - Consultar novo termo\n");
-        System.out.print("| Opção 2 - Inserir novo termo\n");
-        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência)\n");
-        System.out.print("| Opção 4 - Sair\n");
-        System.out.print("|---------------------------|\n");
+        System.out.print("|------------------------Froogle-----------------------|\n");
+        System.out.print("|                                                      |\n");
+        System.out.print("|------------------------------------------------------|\n");
+        System.out.print("| Opção 1 - Consultar novo termo                       |\n");
+        System.out.print("| Opção 2 - Inserir novo termo                         |\n");
+        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência) |\n");
+        System.out.print("| Opção 4 - Sair                                       |\n");
+        System.out.print("|------------------------------------------------------|\n\n");
         System.out.print("Digite uma opção: ");
     }
 
     public static void main(String[] args) throws Exception {
         limparTela();
-        Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
-        Termo[] termos = LoadData.LoadTermos(documentos);
 
+        
         Scanner menu = new Scanner(System.in);
         int opcao;
+        
         do {
+            Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
+            Termo[] termos = LoadData.LoadTermos(documentos);
+            
             limparTela();
             menuExibir();
 
@@ -76,7 +80,10 @@ public class App {
                 case 2:
                     System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
-                    String termoInserir_ = termoInserir.nextLine(); //falta implementar professor
+                    String termoInserir_ = termoInserir.nextLine(); 
+                    termoInserir_ = termoInserir_.toLowerCase();          
+                    LoadData.insertTermo(termoInserir_);
+                    System.out.println("Termo inserido com sucesso!");
                     break;
 
                 case 3:
