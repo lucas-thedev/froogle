@@ -45,7 +45,7 @@ public class App {
         System.out.print("|                                                      |\n");
         System.out.print("|------------------------------------------------------|\n");
         System.out.print("| Opção 1 - Consultar novo termo                       |\n");
-        System.out.print("| Opção 2 - Consultar múltiplos termos                      |\n");
+        System.out.print("| Opção 2 - Consultar múltiplos termos                 |\n");
         System.out.print("| Opção 3 - Inserir novo termo                         |\n");
         System.out.print("| Opção 4 - Exibir termos (decrescente por frequência) |\n");
         System.out.print("| Opção 5 - Sair                                       |\n");
