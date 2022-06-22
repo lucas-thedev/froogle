@@ -1,3 +1,25 @@
-2
-AED_20_MiniGoogle_Etapa1_2022.TXT
-testeTESTE.txt
+24
+Achilles last stand.txt
+AED_Comentarios_lista_estrutLinear_2021-2.txt
+Babe im gonna leave you.txt
+Black dog.txt
+dados2AvaliacaoSeries2020-2.txt
+dados2ClientesJogos2020-2.txt
+dados2Espectadores2020-2.txt
+dadosClientesJogos2020-2.txt
+dadosDoadores2020.txt
+eleitores.txt
+eleitores2020-2.txt
+Gallows pole.txt
+In my time of dying.txt
+Kashimir.txt
+LabComp3_Exerc1_dadosCompleto.txt
+LEIAME.txt
+nomesJogos.txt
+NomesJogosSteam.txt
+Ramble on.txt
+ReadMe.txt
+Stairway to heaven.txt
+The battle of evermore.txt
+Trampled under foot.txt
+Travelling riverside blues.txt

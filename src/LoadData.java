@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.io.PrintWriter;
 
 public class LoadData {
 
-   static Termo[] termos = new Termo[99999];
+   ArrayList<Termo> termos = new ArrayList<Termo>();
    static int cont = 0;
 
     static public Documento[] ReadFiles(String path) throws FileNotFoundException {
@@ -76,12 +77,12 @@ public class LoadData {
         return termos;
     }
 
-    public static int searchTermo(Termo[] termos, String termo) {
+    public static int searchTermo(ArrayList<Termo> termos, String termo) {
         int earlyReturn = -1;
         
         for (int i = 0; i < Termo.count.get(); i++) {
-            if (termos[i] == null) break;
-            if (termos[i].termo.equals(termo)) {
+            if (termos.get(i) == null) break;
+            if (termos.get(i).termo.equals(termo)) {
                 earlyReturn = i;
                 break;
             }
