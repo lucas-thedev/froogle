@@ -8,8 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
-
 public class LoadData {
 
    static Termo[] termos = new Termo[99999];

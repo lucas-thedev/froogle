@@ -1,5 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import javax.print.Doc;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,9 +45,10 @@ public class App {
         System.out.print("|                                                      |\n");
         System.out.print("|------------------------------------------------------|\n");
         System.out.print("| Opção 1 - Consultar novo termo                       |\n");
-        System.out.print("| Opção 2 - Inserir novo termo                         |\n");
-        System.out.print("| Opção 3 - Exibir termos (decrescente por frequência) |\n");
-        System.out.print("| Opção 4 - Sair                                       |\n");
+        System.out.print("| Opção 2 - Consultar múltiplos termos                      |\n");
+        System.out.print("| Opção 3 - Inserir novo termo                         |\n");
+        System.out.print("| Opção 4 - Exibir termos (decrescente por frequência) |\n");
+        System.out.print("| Opção 5 - Sair                                       |\n");
         System.out.print("|------------------------------------------------------|\n\n");
         System.out.print("Digite uma opção: ");
     }
@@ -65,19 +71,51 @@ public class App {
             switch (opcao) {
                 case 1:
                     System.out.print("\nDigite o Termo que deseja pesquisar: ");
+
                     Scanner termoPorcurado = new Scanner(System.in);
                     String termoPorcurado_ = termoPorcurado.nextLine();
+
                     int termoID = LoadData.searchTermo(termos, termoPorcurado_);
+
                     if (termoID == -1) {
                         System.out.print("Termo não existe.");
                     } else {
                         System.out.print("Aparece nos documentos: \n");
-                        termos[termoID].documentos.printList(); 
+                        termos[termoID].printDocuments(); 
                     }
+
                     pausa(termoPorcurado);
+
+                    break;
+                case 2:
+                    System.out.print("\nQuantos termos o documento deve ter:");
+                    int qntTermosPresentes = Integer.parseInt(new Scanner(System.in).toString());
+
+                    System.out.print("\nDigite os Termos que deseja pesquisar, separados por ';' sem espaço: ");
+                    termoPorcurado = new Scanner(System.in);
+
+                    String[] termosProcurados = termoPorcurado.nextLine().split(";");
+
+                    System.out.print("Aparece nos documentos: \n");
+
+                    Map<String, String> map = new HashMap<String, String>();
+
+                    for (String termo : termosProcurados) {
+                        termoID = LoadData.searchTermo(termos, termo);
+                        if (termoID == -1) {
+                            System.out.print("Termo " + termo + " não existe.");
+                        } else {
+                            for (Documento doc : termos[termoID].documentos) {
+                            }
+                        }
+                    }
+
+
+                    
+                    pausa(termoPorcurado);   
                     break;
 
-                case 2:
+                case 3:
                     System.out.print("\nDigite o Termo que deseja inserir: ");
                     Scanner termoInserir = new Scanner(System.in);
                     String termoInserir_ = termoInserir.nextLine(); 
@@ -86,7 +124,7 @@ public class App {
                     System.out.println("Termo inserido com sucesso!");
                     break;
 
-                case 3:
+                case 4:
                     System.out.print("\nTodos os termos: \n");
                     Quicksort.quickSort(termos, 0, Termo.count.get() - 1);
                     for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
@@ -103,7 +141,7 @@ public class App {
                     System.out.print("\nOpção Inválida!");
                     break;
 
-                case 4:
+                case 5:
                     System.out.print("\nAté logo!");
                     menu.close();
             }
