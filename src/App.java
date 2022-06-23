@@ -35,22 +35,46 @@ public class App {
         System.out.flush();
     }
 
-    public  static void pausa(Scanner teclado){
+    public static void pausa(Scanner teclado) {
         System.out.println("\nEnter para continuar.");
         teclado.nextLine();
     }
 
-    public static void menuExibir(){
-        System.out.print("|------------------------Froogle-----------------------|\n");
-        System.out.print("|                                                      |\n");
-        System.out.print("|------------------------------------------------------|\n");
-        System.out.print("| Opção 1 - Consultar novo termo                       |\n");
-        System.out.print("| Opção 2 - Consultar múltiplos termos                 |\n");
-        System.out.print("| Opção 3 - Inserir novo termo                         |\n");
-        System.out.print("| Opção 4 - Exibir termos (decrescente por frequência) |\n");
-        System.out.print("| Opção 5 - Sair                                       |\n");
-        System.out.print("|------------------------------------------------------|\n\n");
+    public static void menuExibir() {
+        System.out.print("|------------------------Froogle------------------------------------------------|\n");
+        System.out.print("|                                                                               |\n");
+        System.out.print("|-------------------------------------------------------------------------------|\n");
+        System.out.print("| Opção 1 - Consultar novo termo                                                |\n");
+        System.out.print("| Opção 2 - Consultar múltiplos termos                                          |\n");
+        System.out.print("| Opção 3 - Inserir novo termo                                                  |\n");
+        System.out.print("| Opção 4 - Exibir termos (decrescente por frequência)                          |\n");
+        System.out.print("| Opção 5 - A partir de dois termos calcular o peso refenrete a suas ocorrências|\n");
+        System.out.print("| Opção 6 - Sair                                                                |\n");
+        System.out.print("|-------------------------------------------------------------------------------|\n\n");
         System.out.print("Digite uma opção: ");
+    }
+
+    public static void PesoTermo(Termo[] termos) {
+        System.out.print("\nDigite o Termo que deseja pesquisar: ");
+        Scanner termoProcurado = new Scanner(System.in);
+        String termoProcuradoS = termoProcurado.nextLine();
+        int termo1Id = LoadData.searchTermo(termos, termoProcuradoS);
+
+        System.out.print("\nDigite o PESO do termo anteriormente escolhido: ");
+        int peso1Digitado = Integer.parseInt(termoProcurado.nextLine());
+        int peso1 = peso1Digitado * termos[termo1Id].counter;
+
+        System.out.print("\nDigite o segundo Termo que deseja pesquisar: ");
+        termoProcuradoS = termoProcurado.nextLine();
+        int termo2Id = LoadData.searchTermo(termos, termoProcuradoS);
+
+        System.out.print("\nDigite o PESO do termo anteriormente escolhido: ");
+        int peso2Digitado = Integer.parseInt(termoProcurado.nextLine());
+        int peso2 = peso2Digitado * termos[termo2Id].counter;
+
+        System.out.println("O peso da palavra " + termos[termo1Id].termo + " é: " + peso1);
+        System.out.println("O peso da palavra " + termos[termo2Id].termo + " é: " + peso2);
+        pausa(termoProcurado);
     }
 
     public static void main(String[] args) throws Exception {
@@ -142,9 +166,13 @@ public class App {
                     break;
 
                 case 5:
+                PesoTermo(termos);
+                break;
+
+                case 6:
                     System.out.print("\nAté logo!");
                     menu.close();
             }
-        } while (opcao != 4);
+        } while (opcao != 6);
     }
 }
