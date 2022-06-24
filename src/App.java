@@ -1,10 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-
-import javax.print.Doc;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +8,6 @@ import java.io.IOException;
 public class App {
     static final String nomeArquivo = "ARQUIVOS.TXT";
     static final String nomeArquivoGravar = "DADOS.TXT";
-    static String path = "AED_20_MiniGoogle_Etapa1_2022.txt";
 
     static void salvarDados(ArrayList<Termo> dados) throws IOException {
         File arquivo = new File(nomeArquivoGravar);
@@ -45,7 +40,7 @@ public class App {
         System.out.print("|                                                      |\n");
         System.out.print("|------------------------------------------------------|\n");
         System.out.print("| Opção 1 - Consultar novo termo                       |\n");
-        System.out.print("| Opção 2 - Consultar múltiplos termos                      |\n");
+        System.out.print("| Opção 2 - Consultar entre dois termos                |\n");
         System.out.print("| Opção 3 - Inserir novo termo                         |\n");
         System.out.print("| Opção 4 - Exibir termos (decrescente por frequência) |\n");
         System.out.print("| Opção 5 - Sair                                       |\n");
@@ -62,7 +57,7 @@ public class App {
         
         do {
             Documento[] documentos = LoadData.ReadFiles(nomeArquivo);
-            Termo[] termos = LoadData.LoadTermos(documentos);
+            HashMap<String, Termo> termos = LoadData.LoadTermos(documentos);
             
             limparTela();
             menuExibir();
@@ -75,22 +70,19 @@ public class App {
                     Scanner termoPorcurado = new Scanner(System.in);
                     String termoPorcurado_ = termoPorcurado.nextLine();
 
-                    int termoID = LoadData.searchTermo(termos, termoPorcurado_);
+                    Termo aux = termos.get(termoPorcurado_);
 
-                    if (termoID == -1) {
+                    if (aux == null) {
                         System.out.print("Termo não existe.");
                     } else {
                         System.out.print("Aparece nos documentos: \n");
-                        termos[termoID].printDocuments(); 
+                        aux.printDocuments(); 
                     }
 
                     pausa(termoPorcurado);
 
                     break;
                 case 2:
-                    System.out.print("\nQuantos termos o documento deve ter:");
-                    int qntTermosPresentes = Integer.parseInt(new Scanner(System.in).toString());
-
                     System.out.print("\nDigite os Termos que deseja pesquisar, separados por ';' sem espaço: ");
                     termoPorcurado = new Scanner(System.in);
 
@@ -98,20 +90,17 @@ public class App {
 
                     System.out.print("Aparece nos documentos: \n");
 
-                    Map<String, String> map = new HashMap<String, String>();
-
-                    for (String termo : termosProcurados) {
-                        termoID = LoadData.searchTermo(termos, termo);
-                        if (termoID == -1) {
-                            System.out.print("Termo " + termo + " não existe.");
+                    for (String word : termosProcurados) {
+                        Termo auxCase2 = termos.get(word);
+                        if (auxCase2 == null) {
+                            System.out.print("Termo " + auxCase2 + " não existe.");
                         } else {
-                            for (Documento doc : termos[termoID].documentos) {
+                            for (Documento doc : auxCase2.documentos) {
+                                System.out.println(doc.titulo);
                             }
                         }
                     }
-
-
-                    
+  
                     pausa(termoPorcurado);   
                     break;
 
@@ -126,15 +115,15 @@ public class App {
 
                 case 4:
                     System.out.print("\nTodos os termos: \n");
-                    Quicksort.quickSort(termos, 0, Termo.count.get() - 1);
-                    for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
+                    //Quicksort.quickSort(termos, 0, Termo.count.get() - 1);
+                    /*for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
                         if (termos[i] != null) {
                             System.out.print(termos[i].termo + ' ');
                             System.out.println(termos[i].counter);
                         }
                     }
                     Scanner termoListar = new Scanner(System.in);
-                    pausa(termoListar);
+                    pausa(termoListar);*/
                     break;
 
                 default:

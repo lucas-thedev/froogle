@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 
 public class LoadData {
 
-   ArrayList<Termo> termos = new ArrayList<Termo>();
+   static HashMap<String, Termo> termos = new HashMap<>();
    static int cont = 0;
 
     static public Documento[] ReadFiles(String path) throws FileNotFoundException {
@@ -43,10 +43,7 @@ public class LoadData {
        return toExclude;
     }
 
-    static public Termo[] LoadTermos(Documento[] documentos) throws FileNotFoundException {
-         
-        int termoCounter = 0;
-
+    static public HashMap<String, Termo> LoadTermos(Documento[] documentos) throws FileNotFoundException {
         for (int i = 0; i < documentos.length; i++) {
             File arquivo = new File(documentos[i].titulo);
             Scanner leitorTermo = new Scanner(arquivo);
@@ -56,24 +53,22 @@ public class LoadData {
                 String[] separatedWords = leitorTermo.nextLine().split(" ");
 
                 for (String word : separatedWords) {
-                    cont++;
-                    int index = searchTermo(termos, word);
-                    
-                    if (index > -1) {
-                        termos[index].counter++;
-                        
+                    cont++;      
+                    Termo aux = termos.get(word);              
+                    if (aux != null) {
+                        aux.counter++;
+                        aux.documentos.add(documentos[i]);
+                        termos.put(word, aux);
                     } else {
                         if (!checkTermosToExclude(word)) {
-                            termos[termoCounter] = new Termo(word, documentos[i]);
-                            termoCounter++;
+                            termos.put(word, new Termo(word, documentos[i]));
                         }
                     }
                 }
             }
             
-            leitorTermo.close();
+            leitorTermo.close(); 
         }
-        
         return termos;
     }
 

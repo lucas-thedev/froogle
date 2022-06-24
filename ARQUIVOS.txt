@@ -12,7 +12,7 @@ eleitores.txt
 eleitores2020-2.txt
 Gallows pole.txt
 In my time of dying.txt
-Kashimir.txt
+Kashmir.txt
 LabComp3_Exerc1_dadosCompleto.txt
 LEIAME.txt
 nomesJogos.txt
