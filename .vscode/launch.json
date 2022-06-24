@@ -9,6 +9,13 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
+            "projectName": "froogle_692c466c"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
             "projectName": "froogle_21b0831"
         },
         {

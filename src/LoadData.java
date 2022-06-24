@@ -38,7 +38,6 @@ public class LoadData {
                 break;
             }
        }
-
        return toExclude;
     }
 
@@ -92,7 +91,6 @@ public class LoadData {
             }
         }
         return earlyReturn;
-
     }
 
 
@@ -118,19 +116,22 @@ public class LoadData {
         String passaTXT ="", formatador = "";
         
         Map<Integer, String> dictionary = new HashMap<Integer, String>();
-
+        
         Scanner scanner = new Scanner(new FileReader("./DADOS.TXT")).useDelimiter("\\n");
         int exists = -1;
 
         while (scanner.hasNext()) {
             String aux = scanner.next();
             aux = aux.toLowerCase(); 
-
+            StringTokenizer v = new StringTokenizer(aux, ";");
+            v.nextToken();
+            String breaking = v.nextToken();
+            
             if(aux != null || aux !="")
             dictionary.put(cont, aux);
             
-            if (aux.contains(termo))
-             exists = cont;
+            if (breaking.equals(termo))
+                exists = cont;
 
              cont++;
         }
@@ -170,14 +171,12 @@ public class LoadData {
             for(int k=0; k<=cont; k++){
                 if(dictionary.get(k)!= null && dictionary.get(k)!= ""){
                     if(k==0)
-                        passaTXT+=  dictionary.get(k);
+                        passaTXT+= dictionary.get(k);
                     else
                         passaTXT+= "\n" + dictionary.get(k);      
                     }
-
             }
                     gravarArq.print(passaTXT);
                     gravarArq.close();
-
     }
 }
