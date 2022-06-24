@@ -5,14 +5,12 @@ public class Termo {
     static final AtomicInteger count = new AtomicInteger(0);
     int id;
     String termo;
-    int counter;
-    int docCounter;
+    Integer counter;
     ArrayList<Documento> documentos;
 
     Termo (String t, Documento doc) {
         this.termo = t; 
-        this.counter = 0; 
-        this.docCounter = 0; 
+        this.counter = 1; 
         this.id = count.incrementAndGet();
         this.documentos = new ArrayList<Documento>();
         documentos.add(doc);
@@ -23,4 +21,5 @@ public class Termo {
             System.out.println(doc.titulo);
         }
     }
+
 }

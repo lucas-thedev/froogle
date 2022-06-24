@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -30,9 +32,15 @@ public class App {
         System.out.flush();
     }
 
-    public  static void pausa(Scanner teclado){
+    public static void pausa(Scanner teclado) {
         System.out.println("\nEnter para continuar.");
         teclado.nextLine();
+    }
+
+    public static void mapDocumentos(ArrayList<Documento> documentos, int peso){
+        for (Documento doc : documentos) {
+            doc.peso = peso * doc.frequency;
+        }
     }
 
     public static void menuExibir(){
@@ -43,7 +51,7 @@ public class App {
         System.out.print("| Opção 2 - Consultar entre dois termos                |\n");
         System.out.print("| Opção 3 - Inserir novo termo                         |\n");
         System.out.print("| Opção 4 - Exibir termos (decrescente por frequência) |\n");
-        System.out.print("| Opção 5 - Sair                                       |\n");
+        System.out.print("| Opção 5 - Exibir lista de documentos por peso        |\n");
         System.out.print("|------------------------------------------------------|\n\n");
         System.out.print("Digite uma opção: ");
     }
@@ -115,15 +123,17 @@ public class App {
 
                 case 4:
                     System.out.print("\nTodos os termos: \n");
-                    //Quicksort.quickSort(termos, 0, Termo.count.get() - 1);
-                    /*for (int i = Termo.count.get() - 1 ; i >= 0; i--) {
-                        if (termos[i] != null) {
-                            System.out.print(termos[i].termo + ' ');
-                            System.out.println(termos[i].counter);
+                    ArrayList<Termo> termosList = new ArrayList<Termo>(termos.values());
+                    Collections.sort(termosList, new Comparator<Termo>() {
+                        @Override
+                        public int compare(Termo termo1, Termo termo2)
+                        {
+                
+                            return  termo1.counter.compareTo(termo2.counter);
                         }
-                    }
-                    Scanner termoListar = new Scanner(System.in);
-                    pausa(termoListar);*/
+                    });
+                    Collections.reverse(termosList);
+                    salvarDados(termosList);
                     break;
 
                 default:
@@ -131,9 +141,53 @@ public class App {
                     break;
 
                 case 5:
+                    System.out.print("\nDigite o Termo que deseja pesquisar: ");
+                    Scanner termoProcurado = new Scanner(System.in);
+                    String termoProcuradoS = termoProcurado.nextLine();
+                    Termo termo1 = termos.get(termoProcuradoS);
+
+                    System.out.print("\nDigite o PESO do termo anteriormente escolhido: ");
+                    int peso1Digitado = Integer.parseInt(termoProcurado.nextLine());
+                    mapDocumentos(termo1.documentos, peso1Digitado);
+                    
+
+                    System.out.print("\nDigite o segundo Termo que deseja pesquisar: ");
+                    termoProcuradoS = termoProcurado.nextLine();
+                    Termo termo2 = termos.get(termoProcuradoS);
+
+                    System.out.print("\nDigite o PESO do termo anteriormente escolhido: ");
+                    int peso2Digitado = Integer.parseInt(termoProcurado.nextLine());
+                    mapDocumentos(termo2.documentos, peso2Digitado);
+
+                    Collections.sort(termo1.documentos, new Comparator<Documento>() {
+                        @Override
+                        public int compare(Documento doc1, Documento doc2)
+                        {
+                
+                            return  doc1.peso.compareTo(doc2.peso);
+                        }
+                    });
+
+                    Collections.sort(termo2.documentos, new Comparator<Documento>() {
+                        @Override
+                        public int compare(Documento doc1, Documento doc2)
+                        {
+                
+                            return  doc1.peso.compareTo(doc2.peso);
+                        }
+                    });
+
+                    termo1.printDocuments();
+                    termo2.printDocuments();
+
+                    pausa(termoProcurado);   
+
+                    break;
+
+                case 6:
                     System.out.print("\nAté logo!");
                     menu.close();
             }
-        } while (opcao != 4);
+        } while (opcao != 6);
     }
 }

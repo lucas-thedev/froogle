@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 public class LoadData {
 
    static HashMap<String, Termo> termos = new HashMap<>();
-   static int cont = 0;
 
     static public Documento[] ReadFiles(String path) throws FileNotFoundException {
         File arqQuantidade = new File(path);
@@ -29,7 +28,7 @@ public class LoadData {
     }
 
     public static boolean checkTermosToExclude (String termo) {
-        String[] termosToExclude = new String[]{"eu", "tu", "ele", "ela", "nós", "vós", "eles", "que", "de", "para", "até", "antes", "após", "depois", "com"};
+        String[] termosToExclude = new String[]{"eu", "tu", "ele", "ela", "nós", "vós", "eles", "que", "de", "para", "até", "antes", "após", "depois", "com", "-", ","};
 
         boolean toExclude = false;
 
@@ -53,17 +52,8 @@ public class LoadData {
                 String[] separatedWords = leitorTermo.nextLine().split(" ");
 
                 for (String word : separatedWords) {
-                    cont++;      
                     Termo aux = termos.get(word);              
-                    if (aux != null) {
-                        aux.counter++;
-                        aux.documentos.add(documentos[i]);
-                        termos.put(word, aux);
-                    } else {
-                        if (!checkTermosToExclude(word)) {
-                            termos.put(word, new Termo(word, documentos[i]));
-                        }
-                    }
+                    handleTermo(aux, word, documentos[i]);
                 }
             }
             
@@ -72,17 +62,37 @@ public class LoadData {
         return termos;
     }
 
-    public static int searchTermo(ArrayList<Termo> termos, String termo) {
+    public static void handleTermo(Termo termo, String word, Documento doc) {
+        if (termo != null) {
+            termo.counter++;
+            handleDocumento(termo.documentos, doc.titulo);
+            termos.put(word, termo);
+        } else {
+            if (!checkTermosToExclude(word)) {
+                termos.put(word, new Termo(word, new Documento(doc.titulo)));
+            }
+        }
+    }
+
+    public static void handleDocumento(ArrayList<Documento> documentos, String docTitle) {
+        int docId = findDocumento(documentos, docTitle);
+        if (docId > -1) {
+            documentos.get(docId).frequency++;
+        } else {
+            documentos.add(new Documento(docTitle));
+        }
+    }
+
+    public static int findDocumento(ArrayList<Documento> documentos, String docTitle) {
         int earlyReturn = -1;
-        
-        for (int i = 0; i < Termo.count.get(); i++) {
-            if (termos.get(i) == null) break;
-            if (termos.get(i).termo.equals(termo)) {
+        for (int i = 0; i < documentos.size(); i++){
+            if (documentos.get(i).titulo.equals(docTitle)) {
                 earlyReturn = i;
-                break;
+                return earlyReturn;
             }
         }
         return earlyReturn;
+
     }
 
 

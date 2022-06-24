@@ -5,6 +5,8 @@ public class Documento {
     int idDoc;
     String titulo;
     String url;
+    int frequency;
+    Integer peso;
 
     Documento(String titulo) {
         this.idDoc = count.incrementAndGet();
